@@ -74,6 +74,6 @@ class RegisterController extends Controller
      */
     protected function redirectTo()
     {
-        return session('route', '/customer'); // Default to '/customer' if 'route' is not set in the session
+        return session('route', '/'); // Default to '/customer' if 'route' is not set in the session
     }
 }
