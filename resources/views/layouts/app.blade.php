@@ -1,3 +1,8 @@
+@php
+    use App\Models\toko;
+    $toko = toko::all();
+@endphp
+
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -7,7 +12,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Qwords</title>
+    <title>Master CMS</title>
 
     {{-- <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -18,8 +23,12 @@
     <link href="{{ asset('') }}img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,500;1,500&family=Noto+Sans:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+    <!-- icon fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
     <!-- Vendor CSS Files -->
     <link href="{{ asset('') }}vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -31,17 +40,21 @@
     <link href="{{ asset('') }}vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="{{ asset('') }}css/style.css" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
     @stack('styles')
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Beli Domain
-                </a>
+                @foreach ($toko as $key => $value)
+                    @if ($value->name == 'Icon')
+                        <a class="navbar-brand" href="{{ url('/') }}">
+                            <img src="{{ asset('') }}img/{{ $value->desc }}" alt="" height="60">
+                        </a>
+                    @endif
+                @endforeach
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -54,38 +67,55 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
                         <li class="nav-item mx-2">
-                            <a id="navbarDropdown" class="nav-link" href="{{ route('login') }}" role="button">
-                                Login
+                            <a id="navbarDropdown" class="nav-link" href="/" role="button">
+                                Home
                             </a>
                         </li>
-                        @else
-                            <li class="nav-item mx-2 dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                        <li class="nav-item mx-2">
+                            <a id="navbarDropdown" class="nav-link" href="#layanan" role="button">
+                                Layanan Kami
+                            </a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a id="navbarDropdown" class="nav-link" href="#why-choose-us" role="button">
+                                Kenapa Memilih Kami
+                            </a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a id="navbarDropdown" class="nav-link" href="#portofolio" role="button">
+                                Portofolio
+                            </a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a id="navbarDropdown" class="nav-link" href="#footer" role="button">
+                                Kontak
+                            </a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a id="navbarDropdown" class="nav-link" href="{{ route('blog') }}" role="button">
+                                Blog
+                            </a>
+                        </li>
+                        @guest
+                            <li class="nav-item mx-2">
+                                <a id="navbarDropdown" class="nav-link" href="{{ route('login') }}" role="button">
+                                    Login
                                 </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
                             </li>
+                        @else
+                            <li class="nav-item mx-2">
+                                <a id="navbarDropdown" class="nav-link" href="{{ route('admin.dashboard') }}" role="button">
+                                    Dashboard
+                                </a>
+                            </li>    
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>

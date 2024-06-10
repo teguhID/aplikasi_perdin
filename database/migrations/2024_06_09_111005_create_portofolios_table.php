@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tr_invoice', function (Blueprint $table) {
-            $table->bigIncrements('id_invoice');
-            $table->string('id_user', 100);
-            $table->unsignedBigInteger('total_harga');
-            $table->string('domain', 100);
-            $table->integer('duration');
+        Schema::create('portofolio', function (Blueprint $table) {
+            $table->bigIncrements('id_portofolio');
+            $table->text('image_path');
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tr_invoice');
+        Schema::dropIfExists('portofolio');
     }
 };

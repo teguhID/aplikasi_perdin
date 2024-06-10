@@ -357,3 +357,9 @@ function formatNumber(input) {
   var formatted = ribuan.join('.').split('').reverse().join('');
   return 'Rp ' + formatted;
 }
+
+function inputCurrency(input) {
+  var num = input.value.replace(/\D/g, '');
+  num = num.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  input.value = num;
+}

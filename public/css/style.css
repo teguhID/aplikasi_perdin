@@ -11,10 +11,14 @@
 --------------------------------------------------------------*/
 :root {
   scroll-behavior: smooth;
+  --primary-color: #8AB435;
 }
 
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
   background: #f6f9ff;
   color: #444444;
 }
@@ -1234,4 +1238,37 @@ h6 {
 
 label.error {
   color: red;
+}
+
+.w-100px {
+  width: 100px;
+}
+
+.w-200px {
+  width: 200px;
+}
+
+.title-text-card {
+  font-size: 25px; 
+  font-weight: bold; 
+  color: var(--primary-color);
+}
+
+.title-text {
+  font-size: 35px; 
+  color: var(--primary-color);
+}
+
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--primary-color);
+  color: white;
+  text-align: center;
+}
+
+.color-primary {
+  color: var(--primary-color);
 }
