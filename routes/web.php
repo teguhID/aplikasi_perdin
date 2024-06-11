@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Session;
 
 Auth::routes();
 
+Route::get('/register', function () {
+    return redirect()->route('login');
+});
+
 Route::get('/', [App\Http\Controllers\AppController::class, 'home'])->name('home');
 Route::get('/blog', [App\Http\Controllers\AppController::class, 'blog'])->name('blog');
 Route::get('/blog/{id_blog}', [App\Http\Controllers\AppController::class, 'blog_detail'])->name('blog.detail');
@@ -52,6 +56,14 @@ Route::get('/admin/content/profile', [App\Http\Controllers\ContentController::cl
 Route::get('/admin/content/profile/edit_view/{id_profile}', [App\Http\Controllers\ContentController::class, 'profile_edit_view'])->name('admin.content.profile.edit_view');
 Route::post('/admin/content/profile/edit/{id_profile}', [App\Http\Controllers\ContentController::class, 'profile_edit'])->name('admin.content.profile.edit');
 
+Route::get('/admin/content/choose_us', [App\Http\Controllers\ContentController::class, 'choose_us'])->name('admin.content.choose_us');
+Route::get('/admin/content/choose_us/add_view', [App\Http\Controllers\ContentController::class, 'choose_us_add_view'])->name('admin.content.choose_us.add_view');
+Route::get('/admin/content/choose_us/{id_choose_us}', [App\Http\Controllers\ContentController::class, 'choose_us_detail'])->name('admin.content.choose_us.detail');
+Route::post('/admin/content/choose_us/post', [App\Http\Controllers\ContentController::class, 'choose_us_post'])->name('admin.content.choose_us.post');
+Route::get('/admin/content/choose_us/edit_view/{id_choose_us}', [App\Http\Controllers\ContentController::class, 'choose_us_edit_view'])->name('admin.content.choose_us.edit_view');
+Route::post('/admin/content/choose_us/edit/{id_choose_us}', [App\Http\Controllers\ContentController::class, 'choose_us_edit'])->name('admin.content.choose_us.edit');
+Route::post('/admin/content/choose_us/delete/{id_choose_us}', [App\Http\Controllers\ContentController::class, 'choose_us_delete'])->name('admin.content.choose_us.delete');
+
 Route::get('/admin/content/portofolio', [App\Http\Controllers\ContentController::class, 'portofolio'])->name('admin.content.portofolio');
 Route::post('/admin/content/portofolio/post', [App\Http\Controllers\ContentController::class, 'portofolio_post'])->name('admin.content.portofolio.post');
 Route::post('/admin/content/portofolio/delete/{id_portofolio}', [App\Http\Controllers\ContentController::class, 'portofolio_delete'])->name('admin.content.portofolio.delete');
@@ -59,3 +71,11 @@ Route::post('/admin/content/portofolio/delete/{id_portofolio}', [App\Http\Contro
 Route::get('/admin/content/contact', [App\Http\Controllers\ContentController::class, 'contact'])->name('admin.content.contact');
 Route::get('/admin/content/contact/edit_view', [App\Http\Controllers\ContentController::class, 'contact_edit_view'])->name('admin.content.contact.edit_view');
 Route::post('/admin/content/contact/edit', [App\Http\Controllers\ContentController::class, 'contact_edit'])->name('admin.content.contact.edit');
+
+Route::get('/admin/blog', [App\Http\Controllers\BlogController::class, 'blog'])->name('admin.blog');
+Route::get('/admin/blog/add_view', [App\Http\Controllers\BlogController::class, 'blog_add_view'])->name('admin.blog.add_view');
+Route::get('/admin/blog/{id_blog}', [App\Http\Controllers\BlogController::class, 'blog_detail'])->name('admin.blog.detail');
+Route::post('/admin/blog/post', [App\Http\Controllers\BlogController::class, 'blog_post'])->name('admin.blog.post');
+Route::get('/admin/blog/edit_view/{id_blog}', [App\Http\Controllers\BlogController::class, 'blog_edit_view'])->name('admin.blog.edit_view');
+Route::post('/admin/blog/edit/{id_blog}', [App\Http\Controllers\BlogController::class, 'blog_edit'])->name('admin.blog.edit');
+Route::post('/admin/blog/delete/{id_blog}', [App\Http\Controllers\BlogController::class, 'blog_delete'])->name('admin.blog.delete');

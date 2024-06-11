@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
         $contact = [
             [
                 'icon' => 'fa-brands fa-whatsapp',
-                'name' => 'whatsaapp',
+                'name' => 'whatsapp',
                 'desc' => '0899812387123',
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),

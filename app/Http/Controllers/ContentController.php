@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 use App\Models\banner;
+use App\Models\choose_us;
 use App\Models\layanan;
 use App\Models\profile;
 use App\Models\contact;
@@ -72,7 +73,6 @@ class ContentController extends Controller
     }
 
     // ========================= LAYANAN =========================
-
     function layanan()
     {
         $data = layanan::all();
@@ -196,6 +196,102 @@ class ContentController extends Controller
         }
 
         return redirect()->route('admin.content.profile');
+    }
+
+    // ========================= CHOOSE US =========================
+    function choose_us()
+    {
+        $data = choose_us::all();
+        return view('admin.content.choose_us.list')->with('data', $data);
+    }
+
+    function choose_us_detail()
+    {
+        return view('admin.content.choose_us.detail');
+    }
+
+    function choose_us_add_view()
+    {
+        return view('admin.content.choose_us.add');
+    }
+
+    function choose_us_post(Request $request)
+    {
+        try {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('img/choose_us'), $imageName);
+
+            $data = [
+                'name' => $request->name,
+                'desc' => $request->desc,
+                'image_path' => 'choose_us/' . $imageName
+            ];
+
+            choose_us::create($data);
+            session()->flash('success', 'Data berhasil ditambahkan');
+        } catch (\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+
+        return redirect()->route('admin.content.choose_us');
+    }
+
+    function choose_us_edit_view($id_choose_us)
+    {
+        $data = choose_us::where('id_choose_us', $id_choose_us)->first();
+        return view('admin.content.choose_us.ubah')->with('data', $data);
+    }
+
+    function choose_us_edit(Request $request, $id_choose_us)
+    {
+        try {
+            $data = [];
+            $image = $request->file('image');
+
+            if ($image) {
+
+                $old_image = public_path('img/' . $request->old_image);
+
+                if (File::exists($old_image)) {
+                    File::delete($old_image);
+                }
+
+                $image_name = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('img/choose_us'), $image_name);
+
+                $data['image_path'] = 'choose_us/' . $image_name;
+            }
+
+            $data['name'] = $request->name;
+            $data['desc'] = $request->desc;
+
+            choose_us::where('id_choose_us', $id_choose_us)->update($data);
+            session()->flash('success', 'Data berhasil diubah');
+        } catch (\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+
+        return redirect()->route('admin.content.choose_us');
+    }
+
+    function choose_us_delete(Request $request, $id_choose_us)
+    {
+        try {
+            layanan::where('id_choose_us', $id_choose_us)->delete();
+
+            $image = public_path('img/' . $request->image);
+
+            if (File::exists($image)) {
+                File::delete($image);
+            }
+
+            session()->flash('success', 'Data berhasil dihapus');
+        } catch (\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+
+        return redirect()->route('admin.content.choose_us');
     }
 
     // ========================= PORTOFOLIO =========================

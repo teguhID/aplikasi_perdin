@@ -28,14 +28,6 @@
                                     Login
                                 </button>
                             </div>
-                            <div class="col-md-12 text-center mt-2">
-                                <small>
-                                    Belum punya akun ?
-                                    <a href="{{ route('register') }}" class="">
-                                        Register
-                                    </a>
-                                </small>
-                            </div>
                         </div>
                     </form>
                 </div>

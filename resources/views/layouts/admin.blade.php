@@ -1,3 +1,10 @@
+@php
+    use App\Models\toko;
+    use App\Models\contact;
+    $toko = toko::all();
+    $contact = contact::all();
+@endphp
+
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -51,9 +58,13 @@
 
         <div class="d-flex align-items-center justify-content-between">
         <a href="#" class="logo d-flex align-items-center">
-            <span class="d-none d-lg-block">
-                <img src="{{ asset('') }}img/app.png" alt="" height="80">
-            </span>
+            @foreach ($toko as $key => $value)
+                @if ($value->name == 'Icon')
+                    <span class="d-none d-lg-block">
+                        <img src="{{ asset('') }}img/{{ $value->desc }}" alt="" height="80">
+                    </span>
+                @endif
+            @endforeach
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -132,6 +143,9 @@
                     ($currentRoute == 'admin.content.layanan.edit_view') ||
                     ($currentRoute == 'admin.content.profile') ||
                     ($currentRoute == 'admin.content.profile.edit_view') ||
+                    ($currentRoute == 'admin.content.choose_us') || 
+                    ($currentRoute == 'admin.content.choose_us.add_view') ||
+                    ($currentRoute == 'admin.content.choose_us.edit_view') ||
                     ($currentRoute == 'admin.content.portofolio') ||
                     ($currentRoute == 'admin.content.contact') ||
                     ($currentRoute == 'admin.content.contact.add_view') ||
@@ -152,6 +166,9 @@
                     ($currentRoute == 'admin.content.layanan.add_view') ||
                     ($currentRoute == 'admin.content.layanan.edit_view') ||
                     ($currentRoute == 'admin.content.profile') ||
+                    ($currentRoute == 'admin.content.choose_us') || 
+                    ($currentRoute == 'admin.content.choose_us.add_view') ||
+                    ($currentRoute == 'admin.content.choose_us.edit_view') ||
                     ($currentRoute == 'admin.content.profile.edit_view') ||
                     ($currentRoute == 'admin.content.portofolio') ||
                     ($currentRoute == 'admin.content.contact') ||
@@ -198,6 +215,19 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('admin.content.choose_us') }}" class="{{ 
+                        
+                        ($currentRoute == 'admin.content.choose_us') ||
+                        ($currentRoute == 'admin.content.choose_us.add_view') ||
+                        ($currentRoute == 'admin.content.choose_us.edit_view')
+                        
+                        ? 'active' : '' 
+                        
+                        }}">
+                        <i class="bi bi-circle"></i><span>Choose Us</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('admin.content.portofolio') }}" class="{{ 
                         
                         ($currentRoute == 'admin.content.portofolio')
@@ -224,12 +254,18 @@
                 
                 </ul>
             </li>
-            {{-- <li class="nav-item">
-                <a class="nav-link" href="#">
-                <i class="fa-regular fa-newspaper"></i>
+
+            <li class="nav-item">
+                <a class="nav-link {{ 
+                    
+                    $currentRoute == 'admin.blog' ||
+                    $currentRoute == 'admin.blog.edit_view'
+                    
+                    ? '' : 'collapsed' }}" href="{{ route('admin.blog') }}">
+                <i class="fa-solid fa-shop"></i>
                 <span>Blog</span>
                 </a>
-            </li> --}}
+            </li>
 
         </ul>
 

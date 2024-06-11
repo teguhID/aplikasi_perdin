@@ -1,6 +1,8 @@
 @php
     use App\Models\toko;
+    use App\Models\contact;
     $toko = toko::all();
+    $contact = contact::all();
 @endphp
 
 <!doctype html>
@@ -68,38 +70,40 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item mx-2">
-                            <a id="navbarDropdown" class="nav-link" href="/" role="button">
+                            <a id="navbarDropdown" class="nav-link {{ Route::is('home') ? 'link-active' : '' }}" href="/" role="button">
                                 Home
                             </a>
                         </li>
+                        @if (Route::is('home'))
+                            <li class="nav-item mx-2">
+                                <a id="navbarDropdown" class="nav-link" href="#layanan" role="button">
+                                    Layanan Kami
+                                </a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a id="navbarDropdown" class="nav-link" href="#why-choose-us" role="button">
+                                    Kenapa Memilih Kami
+                                </a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a id="navbarDropdown" class="nav-link" href="#portofolio" role="button">
+                                    Portofolio
+                                </a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a id="navbarDropdown" class="nav-link" href="#footer" role="button">
+                                    Kontak
+                                </a>
+                            </li>
+                        @endif
                         <li class="nav-item mx-2">
-                            <a id="navbarDropdown" class="nav-link" href="#layanan" role="button">
-                                Layanan Kami
-                            </a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a id="navbarDropdown" class="nav-link" href="#why-choose-us" role="button">
-                                Kenapa Memilih Kami
-                            </a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a id="navbarDropdown" class="nav-link" href="#portofolio" role="button">
-                                Portofolio
-                            </a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a id="navbarDropdown" class="nav-link" href="#footer" role="button">
-                                Kontak
-                            </a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a id="navbarDropdown" class="nav-link" href="{{ route('blog') }}" role="button">
+                            <a id="navbarDropdown" class="nav-link {{ Route::is('blog') || Route::is('blog.detail') ? 'link-active' : '' }}" href="{{ route('blog') }}" role="button">
                                 Blog
                             </a>
                         </li>
                         @guest
                             <li class="nav-item mx-2">
-                                <a id="navbarDropdown" class="nav-link" href="{{ route('login') }}" role="button">
+                                <a id="navbarDropdown" class="nav-link {{ Route::is('login') ? 'link-active' : '' }}" href="{{ route('login') }}" role="button">
                                     Login
                                 </a>
                             </li>
@@ -117,6 +121,38 @@
 
         <main>
             @yield('content')
+
+            @if (Route::is('home'))
+                <div class="bottom-nav p-2">
+                    <div class="row justify-content-center">
+                        @foreach ($contact as $key => $value)
+                            @if ($value->name == 'phone')
+                            <div class="col text-center py-3" style="cursor: pointer;" onclick="sendphone('{{$value->desc}}')">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <span>Telephone</span>
+                                </div>
+                            @endif
+                        @endforeach
+                        @foreach ($contact as $key => $value)
+                            @if ($value->name == 'whatsapp')
+                                <div class="col text-center py-3" style="cursor: pointer;" onclick="sendwa('{{$value->desc}}')">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                    <span>Whatsapp</span>
+                                </div>
+                            @endif
+                        @endforeach
+                        @foreach ($contact as $key => $value)
+                        @if ($value->name == 'maps')
+                            <div class="col text-center py-3" style="cursor: pointer;" onclick="sendmaps('{{$value->desc}}')">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                                <span>Maps</span>
+                            </div>
+                        @endif
+                    @endforeach
+                    </div>
+                </div>
+            @endif
+
         </main>
     </div>
 
@@ -133,6 +169,32 @@
     <!-- Template Main JS File -->
     <script src="{{ asset('') }}js/main.js"></script>
     <script src="{{ asset('') }}js/jquery-3.7.1.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $(".nav-link").click(function(event) {
+                // event.preventDefault();
+                $(".nav-link").removeClass("link-active");
+                $(this).addClass("link-active");
+            });
+        });
+
+        function sendwa(number) {
+            var message = "Selamat pagi/siang/malam! Saya tertarik dengan layanan jasa perbaikan yang anda tawarkan. Bisakah saya mendapatkan informasi lebih lanjut ?";
+            var url = "https://wa.me/" + number + "/?text=" + encodeURIComponent(message);
+            window.open(url, "_blank");
+        }
+
+        function sendphone(number) {
+            var url = "tel:" + number;
+            window.open(url, "_blank");
+        }
+
+        function sendmaps(url){
+            window.open(url, "_blank");
+        }
+    </script>
 
     @stack('scripts')
 

@@ -1272,3 +1272,7 @@ label.error {
 .color-primary {
   color: var(--primary-color);
 }
+
+.nav-link.link-active {
+  color: var(--primary-color);
+}
