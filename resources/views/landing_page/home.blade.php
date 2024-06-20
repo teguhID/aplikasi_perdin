@@ -124,7 +124,11 @@
         <div class="col-md-12">
             <div class="row my-3">
                 <div class="col-md-12 text-center">
-                    <p class="title-text">Portofolio Rekan Teknik Service</p>
+                    @foreach ($data['toko'] as $key => $value)
+                        @if ($value->name == 'Nama Toko')
+                            <p class="title-text">Portofolio {{ $value->desc }}</p>
+                        @endif
+                    @endforeach
                 </div>
             </div>
             <div class="row">

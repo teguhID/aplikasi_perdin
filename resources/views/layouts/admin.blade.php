@@ -1,6 +1,9 @@
 @php
     use App\Models\toko;
     use App\Models\contact;
+    use App\Models\profile;
+
+    $profile = profile::get()->first();
     $toko = toko::all();
     $contact = contact::all();
 @endphp
@@ -10,11 +13,35 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ $profile->desc }}">
+    <meta name="keywords" content="jasa servis, jasa service, servis elektronik, service elektronik, servis komputer, service komputer, servis rumah, service rumah, servis AC, service AC, servis mobil, service mobil, Bandung">
+    <meta name="author" content="Globe Servis">
+
+     <!-- Open Graph Meta Tags -->
+     <meta property="og:title" content="Globe Servis - Jasa Servis di Kota Bandung">
+     <meta property="og:description" content="{{ $profile->desc }}">
+     <meta property="og:image" content="path/to/image.jpg">
+     <meta property="og:image" content="{{ asset('') }}img/apple-touch-icon.png">
+     <meta property="og:url" content="https://jasaservisbandung.com/">
+     <meta property="og:type" content="website">
+     
+     <!-- Twitter Card Meta Tags -->
+     <meta name="twitter:card" content="summary_large_image">
+     <meta name="twitter:title" content="Globe Servis - Jasa Servis di Kota Bandung">
+     <meta name="twitter:description" content="Globe Servis menyediakan jasa servis terpercaya di kota Bandung. Kami melayani berbagai kebutuhan servis Anda dengan profesionalisme dan keahlian.">
+     <meta name="twitter:image" content="{{ asset('') }}img/apple-touch-icon.png">
+ 
+     <!-- Additional Meta Tags -->
+     <meta name="theme-color" content="#4CAF50">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Master CMS</title>
+    @foreach ($toko as $key => $value)
+        @if ($value->name == 'Nama Toko')
+            <title>{{ $value->desc }}</title>
+        @endif
+    @endforeach
 
     {{-- <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -114,13 +141,6 @@
     <aside id="sidebar" class="sidebar">
 
         <ul class="sidebar-nav" id="sidebar-nav">
-
-            <li class="nav-item">
-                <a class="nav-link {{ $currentRoute == 'admin.dashboard' ? '' : 'collapsed' }}" href="{{ route('admin.dashboard') }}">
-                <i class="fa-solid fa-table-cells-large"></i>
-                <span>Dashboard</span>
-                </a>
-            </li>
 
             <li class="nav-item">
                 <a class="nav-link {{ 
@@ -262,8 +282,20 @@
                     $currentRoute == 'admin.blog.edit_view'
                     
                     ? '' : 'collapsed' }}" href="{{ route('admin.blog') }}">
-                <i class="fa-solid fa-shop"></i>
+                <i class="fa-solid fa-newspaper"></i>
                 <span>Blog</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {{ 
+                    
+                    $currentRoute == 'admin.user' ||
+                    $currentRoute == 'admin.user.edit_view'
+                    
+                    ? '' : 'collapsed' }}" href="{{ route('admin.user') }}">
+                <i class="fa-solid fa-address-card"></i>
+                <span>User Management</span>
                 </a>
             </li>
 

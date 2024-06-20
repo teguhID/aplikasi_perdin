@@ -7,12 +7,7 @@ use Illuminate\Support\Facades\File;
 
 use Illuminate\Http\Request;
 
-use App\Models\banner;
-use App\Models\choose_us;
 use App\Models\blog;
-use App\Models\profile;
-use App\Models\contact;
-use App\Models\portofolio;
 
 class BlogController extends Controller
 {

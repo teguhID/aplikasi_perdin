@@ -54,7 +54,7 @@
                                         <tr>
                                             <td class="text-center"><small>{{ $key + 1 }}</small></td>
                                             <td class="text-center">
-                                                <img src="{{ asset('') }}img/{{ $value->image_path }}" alt="" width="80">
+                                                <img src="{{ asset('') }}img/{{ $value->image_path }}" alt="" width="50">
                                             </td>
                                             <td class="text-center"><small>{{ $value->judul }}</small></td>
                                             <td class="text-center">

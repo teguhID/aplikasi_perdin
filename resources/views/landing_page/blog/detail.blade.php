@@ -8,7 +8,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <img src="{{ asset('') }}img/{{ $data->image_path }}" alt="">
+            <img src="{{ asset('') }}img/{{ $data->image_path }}" alt="{{ $data->image_path }}" width="400">
         </div>
         <div class="col-md-12">
             <small class="text-black-50">{{ $data->created_at }}</small>

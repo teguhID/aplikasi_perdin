@@ -123,6 +123,8 @@
                 }
             },
             submitHandler: function(form) {
+                var content = quill.root.innerHTML;
+                $('#desc').val(content);
                 form.submit();
             }
         });

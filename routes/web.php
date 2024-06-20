@@ -79,3 +79,7 @@ Route::post('/admin/blog/post', [App\Http\Controllers\BlogController::class, 'bl
 Route::get('/admin/blog/edit_view/{id_blog}', [App\Http\Controllers\BlogController::class, 'blog_edit_view'])->name('admin.blog.edit_view');
 Route::post('/admin/blog/edit/{id_blog}', [App\Http\Controllers\BlogController::class, 'blog_edit'])->name('admin.blog.edit');
 Route::post('/admin/blog/delete/{id_blog}', [App\Http\Controllers\BlogController::class, 'blog_delete'])->name('admin.blog.delete');
+
+Route::get('/admin/user', [App\Http\Controllers\UserController::class, 'user'])->name('admin.user');
+Route::get('/admin/user/{id}', [App\Http\Controllers\UserController::class, 'edit_view'])->name('admin.user.edit_view');
+Route::post('/admin/user/edit/{id}', [App\Http\Controllers\UserController::class, 'user_edit'])->name('admin.user.edit');

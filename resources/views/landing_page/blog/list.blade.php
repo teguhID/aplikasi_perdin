@@ -12,7 +12,7 @@
                 <a href="{{ route('blog.detail', ['id_blog' => $value->id_blog]) }}">
                     <div class="row mt-2">
                         <div class="col-md-12">
-                            <img class="rounded" src="{{ asset('') }}img/{{ $value->image_path }}" alt="Title" height="200"/>
+                            <img class="rounded" src="{{ asset('') }}img/{{ $value->image_path }}" alt="Title" style="width: 100%;" height="200"/>
                         </div>
                     </div>
                     <div class="row mt-2">
