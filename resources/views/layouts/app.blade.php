@@ -14,13 +14,13 @@
     <title>Globe Servis - Jasa Servis di Kota Bandung</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ $profile->desc }}">
+    <meta name="description" content="">
     <meta name="keywords" content="jasa servis, jasa service, servis elektronik, service elektronik, servis komputer, service komputer, servis rumah, service rumah, servis AC, service AC, servis mobil, service mobil, Bandung">
     <meta name="author" content="Globe Servis">
 
      <!-- Open Graph Meta Tags -->
      <meta property="og:title" content="Globe Servis - Jasa Servis di Kota Bandung">
-     <meta property="og:description" content="{{ $profile->desc }}">
+     <meta property="og:description" content="">
      <meta property="og:image" content="path/to/image.jpg">
      <meta property="og:image" content="{{ asset('') }}img/apple-touch-icon.png">
      <meta property="og:url" content="https://jasaservisbandung.com/">
@@ -71,13 +71,9 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top">
             <div class="container">
-                @foreach ($toko as $key => $value)
-                    @if ($value->name == 'Icon')
-                        <a class="navbar-brand" href="{{ url('/') }}">
-                            <img src="{{ asset('') }}img/{{ $value->desc }}" alt="" height="60">
-                        </a>
-                    @endif
-                @endforeach
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <img src="{{ asset('') }}img" alt="" height="60">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -95,31 +91,24 @@
                                 Home
                             </a>
                         </li>
-                        @if (Route::is('home'))
-                            <li class="nav-item mx-2">
-                                <a id="navbarDropdown" class="nav-link" href="#layanan" role="button">
-                                    Layanan Kami
-                                </a>
-                            </li>
-                            <li class="nav-item mx-2">
-                                <a id="navbarDropdown" class="nav-link" href="#why-choose-us" role="button">
-                                    Kenapa Memilih Kami
-                                </a>
-                            </li>
-                            <li class="nav-item mx-2">
-                                <a id="navbarDropdown" class="nav-link" href="#portofolio" role="button">
-                                    Portofolio
-                                </a>
-                            </li>
-                            <li class="nav-item mx-2">
-                                <a id="navbarDropdown" class="nav-link" href="#footer" role="button">
-                                    Kontak
-                                </a>
-                            </li>
-                        @endif
                         <li class="nav-item mx-2">
-                            <a id="navbarDropdown" class="nav-link {{ Route::is('blog') || Route::is('blog.detail') ? 'link-active' : '' }}" href="{{ route('blog') }}" role="button">
-                                Blog
+                            <a id="navbarDropdown" class="nav-link" href="#layanan" role="button">
+                                Layanan Kami
+                            </a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a id="navbarDropdown" class="nav-link" href="#why-choose-us" role="button">
+                                Kenapa Memilih Kami
+                            </a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a id="navbarDropdown" class="nav-link" href="#portofolio" role="button">
+                                Portofolio
+                            </a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a id="navbarDropdown" class="nav-link" href="#footer" role="button">
+                                Kontak
                             </a>
                         </li>
                         @guest
@@ -144,34 +133,7 @@
             @yield('content')
 
             @if (Route::is('home'))
-                <div class="bottom-nav p-2">
-                    <div class="row justify-content-center">
-                        @foreach ($contact as $key => $value)
-                            @if ($value->name == 'phone')
-                            <div class="col text-center py-3" style="cursor: pointer;" onclick="sendphone('{{$value->desc}}')">
-                                    <i class="fa-solid fa-phone"></i>
-                                    <span>Telephone</span>
-                                </div>
-                            @endif
-                        @endforeach
-                        @foreach ($contact as $key => $value)
-                            @if ($value->name == 'whatsapp')
-                                <div class="col text-center py-3" style="cursor: pointer;" onclick="sendwa('{{$value->desc}}')">
-                                    <i class="fa-brands fa-whatsapp"></i>
-                                    <span>Whatsapp</span>
-                                </div>
-                            @endif
-                        @endforeach
-                        @foreach ($contact as $key => $value)
-                        @if ($value->name == 'maps')
-                            <div class="col text-center py-3" style="cursor: pointer;" onclick="sendmaps('{{$value->desc}}')">
-                                <i class="fa-solid fa-map-location-dot"></i>
-                                <span>Maps</span>
-                            </div>
-                        @endif
-                    @endforeach
-                    </div>
-                </div>
+                
             @endif
 
         </main>

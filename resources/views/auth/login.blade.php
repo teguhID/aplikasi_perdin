@@ -12,7 +12,7 @@
 
                         <div class="row mb-1 justify-content-center">
                             <div class="col-md-6 text-center">
-                                <input id="email" type="email" class="form-control" name="email" placeholder="email" required autocomplete="email" autofocus>
+                                <input id="username" type="username" class="form-control" name="username" placeholder="username" required autocomplete="username" autofocus>
                             </div>
                         </div>
 

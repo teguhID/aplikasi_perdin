@@ -1,25 +1,16 @@
-@php
-    use App\Models\toko;
-    use App\Models\contact;
-    use App\Models\profile;
-
-    $profile = profile::get()->first();
-    $toko = toko::all();
-    $contact = contact::all();
-@endphp
-
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ $profile->desc }}">
+    <meta name="description" content="-">
+    <meta name="title" content="Akhdani">
     <meta name="keywords" content="jasa servis, jasa service, servis elektronik, service elektronik, servis komputer, service komputer, servis rumah, service rumah, servis AC, service AC, servis mobil, service mobil, Bandung">
     <meta name="author" content="Globe Servis">
 
      <!-- Open Graph Meta Tags -->
-     <meta property="og:title" content="Globe Servis - Jasa Servis di Kota Bandung">
-     <meta property="og:description" content="{{ $profile->desc }}">
+     <meta property="og:title" content="Akhdani">
+     <meta property="og:description" content="">
      <meta property="og:image" content="path/to/image.jpg">
      <meta property="og:image" content="{{ asset('') }}img/apple-touch-icon.png">
      <meta property="og:url" content="https://jasaservisbandung.com/">
@@ -27,7 +18,7 @@
      
      <!-- Twitter Card Meta Tags -->
      <meta name="twitter:card" content="summary_large_image">
-     <meta name="twitter:title" content="Globe Servis - Jasa Servis di Kota Bandung">
+     <meta name="twitter:title" content="Akhdani">
      <meta name="twitter:description" content="Globe Servis menyediakan jasa servis terpercaya di kota Bandung. Kami melayani berbagai kebutuhan servis Anda dengan profesionalisme dan keahlian.">
      <meta name="twitter:image" content="{{ asset('') }}img/apple-touch-icon.png">
  
@@ -36,16 +27,6 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    @foreach ($toko as $key => $value)
-        @if ($value->name == 'Nama Toko')
-            <title>{{ $value->desc }}</title>
-        @endif
-    @endforeach
-
-    {{-- <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet"> --}}
 
     <!-- Favicons -->
     <link href="{{ asset('') }}img/favicon.png" rel="icon">
@@ -84,14 +65,10 @@
         @endphp
 
         <div class="d-flex align-items-center justify-content-between">
-        <a href="#" class="logo d-flex align-items-center">
-            @foreach ($toko as $key => $value)
-                @if ($value->name == 'Icon')
-                    <span class="d-none d-lg-block">
-                        <img src="{{ asset('') }}img/{{ $value->desc }}" alt="" height="80">
-                    </span>
-                @endif
-            @endforeach
+        <a href="#" class="logo d-flex align-items-center">           
+            <span class="d-none d-lg-block">
+                <img src="{{ asset('') }}img/apple-touch-icon.png" alt="" height="80">
+            </span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -145,147 +122,121 @@
             <li class="nav-item">
                 <a class="nav-link {{ 
                     
-                    $currentRoute == 'admin.toko' ||
-                    $currentRoute == 'admin.toko.edit_view'
+                    $currentRoute == 'admin.dashboard'
                     
-                    ? '' : 'collapsed' }}" href="{{ route('admin.toko') }}">
+                    ? '' : 'collapsed' }}" href="{{ route('admin.dashboard') }}">
                 <i class="fa-solid fa-shop"></i>
-                <span>Toko</span>
+                <span>Dashboard</span>
                 </a>
             </li>
-
+            
             <li class="nav-item">
                 <a class="nav-link {{ 
-                    
-                    ($currentRoute == 'admin.content.banner') ||
-                    ($currentRoute == 'admin.content.layanan') || 
-                    ($currentRoute == 'admin.content.layanan.add_view') ||
-                    ($currentRoute == 'admin.content.layanan.edit_view') ||
-                    ($currentRoute == 'admin.content.profile') ||
-                    ($currentRoute == 'admin.content.profile.edit_view') ||
-                    ($currentRoute == 'admin.content.choose_us') || 
-                    ($currentRoute == 'admin.content.choose_us.add_view') ||
-                    ($currentRoute == 'admin.content.choose_us.edit_view') ||
-                    ($currentRoute == 'admin.content.portofolio') ||
-                    ($currentRoute == 'admin.content.contact') ||
-                    ($currentRoute == 'admin.content.contact.add_view') ||
-                    ($currentRoute == 'admin.content.contact.edit_view')
+                        
+                    ($currentRoute == 'admin.master.pulau.list') ||
+                    ($currentRoute == 'admin.master.pulau.add_view') ||
+                    ($currentRoute == 'admin.master.pulau.edit_view') ||
+                    ($currentRoute == 'admin.master.kota.list') ||
+                    ($currentRoute == 'admin.master.kota.add_view') ||
+                    ($currentRoute == 'admin.master.kota.edit_view')
                     
                     ? '' : 'collapsed' 
                     
                     }}" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
 
                     <i class="fa-solid fa-sliders"></i>
-                    <span>Konten</span>
+                    <span>Master</span>
                     <i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-nav" class="nav-content {{ 
                     
-                    ($currentRoute == 'admin.content.banner') ||
-                    ($currentRoute == 'admin.content.layanan') ||
-                    ($currentRoute == 'admin.content.layanan.add_view') ||
-                    ($currentRoute == 'admin.content.layanan.edit_view') ||
-                    ($currentRoute == 'admin.content.profile') ||
-                    ($currentRoute == 'admin.content.choose_us') || 
-                    ($currentRoute == 'admin.content.choose_us.add_view') ||
-                    ($currentRoute == 'admin.content.choose_us.edit_view') ||
-                    ($currentRoute == 'admin.content.profile.edit_view') ||
-                    ($currentRoute == 'admin.content.portofolio') ||
-                    ($currentRoute == 'admin.content.contact') ||
-                    ($currentRoute == 'admin.content.contact.add_view') ||
-                    ($currentRoute == 'admin.content.contact.edit_view')
+                    ($currentRoute == 'admin.master.pulau.list') ||
+                    ($currentRoute == 'admin.master.pulau.add_view') ||
+                    ($currentRoute == 'admin.master.pulau.edit_view') ||
+                    ($currentRoute == 'admin.master.provinsi.list') ||
+                    ($currentRoute == 'admin.master.provinsi.add_view') ||
+                    ($currentRoute == 'admin.master.provinsi.edit_view') ||
+                    ($currentRoute == 'admin.master.kota.list') ||
+                    ($currentRoute == 'admin.master.kota.add_view') ||
+                    ($currentRoute == 'admin.master.kota.edit_view') ||
+                    ($currentRoute == 'admin.master.role.list') ||
+                    ($currentRoute == 'admin.master.role.add_view') ||
+                    ($currentRoute == 'admin.master.role.edit_view') ||
+                    ($currentRoute == 'admin.master.status.list') ||
+                    ($currentRoute == 'admin.master.status.add_view') ||
+                    ($currentRoute == 'admin.master.status.edit_view')
 
                     ? '' : 'collapse' 
-                    
-                    }}" data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{{ route('admin.content.banner') }}" class="{{ 
-                        
-                        ($currentRoute == 'admin.content.banner')
-                        
-                        ? 'active' : '' 
-                        
-                        }}">
-                        <i class="bi bi-circle"></i><span>Banner</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.content.layanan') }}" class="{{ 
-                        
-                        ($currentRoute == 'admin.content.layanan') ||
-                        ($currentRoute == 'admin.content.layanan.add_view') ||
-                        ($currentRoute == 'admin.content.layanan.edit_view')
-                        
-                        ? 'active' : '' 
-                        
-                        }}">
-                        <i class="bi bi-circle"></i><span>Layanan</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.content.profile') }}" class="{{ 
-                        
-                        ($currentRoute == 'admin.content.profile') ||
-                        ($currentRoute == 'admin.content.profile.edit_view')
-                        
-                        ? 'active' : '' 
-                        
-                        }}">
-                        <i class="bi bi-circle"></i><span>Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.content.choose_us') }}" class="{{ 
-                        
-                        ($currentRoute == 'admin.content.choose_us') ||
-                        ($currentRoute == 'admin.content.choose_us.add_view') ||
-                        ($currentRoute == 'admin.content.choose_us.edit_view')
-                        
-                        ? 'active' : '' 
-                        
-                        }}">
-                        <i class="bi bi-circle"></i><span>Choose Us</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.content.portofolio') }}" class="{{ 
-                        
-                        ($currentRoute == 'admin.content.portofolio')
-                        
-                        ? 'active' : '' 
-                        
-                        }}">
-                        <i class="bi bi-circle"></i><span>Portofolio</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.content.contact') }}" class="{{ 
-                        
-                        ($currentRoute == 'admin.content.contact') ||
-                        ($currentRoute == 'admin.content.contact.add_view') ||
-                        ($currentRoute == 'admin.content.contact.edit_view')
-                        
-                        ? 'active' : '' 
-                        
-                        }}">
-                        <i class="bi bi-circle"></i><span>Kontak</span>
-                    </a>
-                </li>
                 
+                    }}" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ route('admin.master.pulau.list') }}" class="{{ 
+                        
+                                ($currentRoute == 'admin.master.pulau.list') ||
+                                ($currentRoute == 'admin.master.pulau.add_view') ||
+                                ($currentRoute == 'admin.master.pulau.edit_view')
+                            
+                            ? 'active' : '' 
+                            
+                            }}">
+                            <i class="bi bi-circle"></i><span>Pulau</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.master.provinsi.list') }}" class="{{ 
+                        
+                                ($currentRoute == 'admin.master.provinsi.list') ||
+                                ($currentRoute == 'admin.master.provinsi.add_view') ||
+                                ($currentRoute == 'admin.master.provinsi.edit_view')
+                            
+                            ? 'active' : '' 
+                            
+                            }}">
+                            <i class="bi bi-circle"></i><span>Provinsi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.master.kota.list') }}" class="{{ 
+                        
+                                ($currentRoute == 'admin.master.kota.list') ||
+                                ($currentRoute == 'admin.master.kota.add_view') ||
+                                ($currentRoute == 'admin.master.kota.edit_view')
+                            
+                            ? 'active' : '' 
+                            
+                            }}">
+                            <i class="bi bi-circle"></i><span>Kota</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.master.role.list') }}" class="{{ 
+                        
+                                ($currentRoute == 'admin.master.role.list') ||
+                                ($currentRoute == 'admin.master.role.add_view') ||
+                                ($currentRoute == 'admin.master.role.edit_view')
+                            
+                            ? 'active' : '' 
+                            
+                            }}">
+                            <i class="bi bi-circle"></i><span>Role</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.master.status.list') }}" class="{{ 
+                        
+                                ($currentRoute == 'admin.master.status.list') ||
+                                ($currentRoute == 'admin.master.status.add_view') ||
+                                ($currentRoute == 'admin.master.status.edit_view')
+                            
+                            ? 'active' : '' 
+                            
+                            }}">
+                            <i class="bi bi-circle"></i><span>Status</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link {{ 
-                    
-                    $currentRoute == 'admin.blog' ||
-                    $currentRoute == 'admin.blog.edit_view'
-                    
-                    ? '' : 'collapsed' }}" href="{{ route('admin.blog') }}">
-                <i class="fa-solid fa-newspaper"></i>
-                <span>Blog</span>
-                </a>
-            </li>
 
             <li class="nav-item">
                 <a class="nav-link {{ 
@@ -296,6 +247,18 @@
                     ? '' : 'collapsed' }}" href="{{ route('admin.user') }}">
                 <i class="fa-solid fa-address-card"></i>
                 <span>User Management</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {{ 
+                    
+                    $currentRoute == 'admin.user' ||
+                    $currentRoute == 'admin.user.edit_view'
+                    
+                    ? '' : 'collapsed' }}" href="{{ route('admin.user') }}">
+                <i class="fa-solid fa-plane"></i>
+                <span>Pengajuan Perdin</span>
                 </a>
             </li>
 

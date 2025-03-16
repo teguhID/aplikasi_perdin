@@ -34,7 +34,7 @@ class UserController extends Controller
         try {
             $data = [
                 'name' => $request->name,
-                'email' => $request->email,
+                'username' => $request->username,
                 'role' => 'user'
             ];
 

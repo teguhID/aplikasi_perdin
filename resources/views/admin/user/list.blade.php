@@ -49,7 +49,7 @@
                                         <tr>
                                             <td class="text-center"><small>{{ $key + 1 }}</small></td>
                                             <td><small>{{ $value->name }}</small></td>
-                                            <td><small>{{ $value->email }}</small></td>
+                                            <td><small>{{ $value->username }}</small></td>
                                             <td class="text-center">
                                                 <div class="row">
                                                     <div class="col">
