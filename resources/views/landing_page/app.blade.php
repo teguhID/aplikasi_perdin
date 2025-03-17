@@ -138,7 +138,7 @@
                             </li>
                         @else
                             <li class="nav-item mx-2">
-                                <a id="navbarDropdown" class="nav-link" href="{{ route('admin.toko') }}" role="button">
+                                <a id="navbarDropdown" class="nav-link" href="{{ route('admin.dashboard') }}" role="button">
                                     Dashboard
                                 </a>
                             </li>    

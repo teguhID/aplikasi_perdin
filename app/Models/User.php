@@ -43,4 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    function role()
+    {
+        return $this->hasOne(m_role::class, 'id_role', 'id_role');
+    }
 }

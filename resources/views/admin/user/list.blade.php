@@ -40,7 +40,8 @@
                                     <tr>
                                         <th class="text-center" style="width: 10%">No</th>
                                         <th style="width: 35%">Name</th>
-                                        <th style="width: 35%">Email</th>
+                                        <th style="width: 35%">Username</th>
+                                        <th style="width: 35%">Role</th>
                                         <th style="width: 20%"></th>
                                     </tr>
                                 </thead>
@@ -50,6 +51,7 @@
                                             <td class="text-center"><small>{{ $key + 1 }}</small></td>
                                             <td><small>{{ $value->name }}</small></td>
                                             <td><small>{{ $value->username }}</small></td>
+                                            <td><small>{{ $value->role->name }}</small></td>
                                             <td class="text-center">
                                                 <div class="row">
                                                     <div class="col">

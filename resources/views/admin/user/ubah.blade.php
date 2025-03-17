@@ -16,7 +16,7 @@
                     </div>
                     <hr>
                 
-                    <form action="{{ route('admin.user.edit', ['id' => $data->id]) }}" method="post" id="form_edit" class="p-3" enctype="multipart/form-data">
+                    <form action="{{ route('admin.user.edit', ['id' => $data['data']->id]) }}" method="post" id="form_edit" class="p-3" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="row mt-2">
@@ -24,15 +24,28 @@
                                 <span>Nama</span>
                             </div>
                             <div class="col-md-7">
-                                <input type="text" name="name" id="name" class="form-control" value="{{ $data->name }}">
+                                <input type="text" name="name" id="name" class="form-control" value="{{ $data['data']->name }}">
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-3">
-                                <span>Email</span>
+                                <span>Username</span>
                             </div>
                             <div class="col-md-7">
-                                <input type="email" name="email" id="email" class="form-control" value="{{ $data->email }}">
+                                <input type="text" name="username" id="username" class="form-control" value="{{ $data['data']->username }}">
+                            </div>
+                        </div>
+                        {{-- role --}}
+                        <div class="row mt-2">
+                            <div class="col-md-3">
+                                <span>Role</span>
+                            </div>
+                            <div class="col-md-7">
+                                <select name="id_role" id="id_role" class="form-control">
+                                    @foreach ($data['role'] as $item)
+                                        <option value="{{ $item->id_role }}" {{ $data['data']->id_role == $item->id_role ? 'selected' : '' }}>{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
@@ -42,7 +55,7 @@
                                     <span>Password</span>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="password" name="password" id="password_existing" class="form-control" value="{{ $data->password }}" disabled>
+                                    <input type="password" name="password" id="password_existing" class="form-control" value="{{ $data['data']->password }}" disabled>
                                 </div>
                                 <div class="col-md-2 mt-2">
                                     <a href="javascript:void(0)" onclick="ubah_password()"><small>Ubah Password</small></a>

@@ -1,13 +1,3 @@
-@php
-    use App\Models\toko;
-    use App\Models\contact;
-    use App\Models\profile;
-
-    $profile = profile::get()->first();
-    $toko = toko::all();
-    $contact = contact::all();
-@endphp
-
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -91,26 +81,6 @@
                                 Home
                             </a>
                         </li>
-                        <li class="nav-item mx-2">
-                            <a id="navbarDropdown" class="nav-link" href="#layanan" role="button">
-                                Layanan Kami
-                            </a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a id="navbarDropdown" class="nav-link" href="#why-choose-us" role="button">
-                                Kenapa Memilih Kami
-                            </a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a id="navbarDropdown" class="nav-link" href="#portofolio" role="button">
-                                Portofolio
-                            </a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a id="navbarDropdown" class="nav-link" href="#footer" role="button">
-                                Kontak
-                            </a>
-                        </li>
                         @guest
                             <li class="nav-item mx-2">
                                 <a id="navbarDropdown" class="nav-link {{ Route::is('login') ? 'link-active' : '' }}" href="{{ route('login') }}" role="button">
@@ -119,7 +89,7 @@
                             </li>
                         @else
                             <li class="nav-item mx-2">
-                                <a id="navbarDropdown" class="nav-link" href="{{ route('admin.toko') }}" role="button">
+                                <a id="navbarDropdown" class="nav-link" href="{{ route('admin.dashboard') }}" role="button">
                                     Dashboard
                                 </a>
                             </li>    
