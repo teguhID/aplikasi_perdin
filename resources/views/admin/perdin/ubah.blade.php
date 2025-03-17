@@ -5,220 +5,270 @@
 @endpush
 
 @section('content')
+
+@php
+    $id_role = Auth::user()->id_role;
+@endphp
+
 <div class="container">
+
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body px-5 py-4">
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            @if(session('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <small><b>{{ session('success') }}</b></small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+                            @if(session('error'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <small><b>{{ session('error') }}</b></small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
                     <div class="row pt-3">
                         <div class="col-md-6">
-                            <h5>Tambah Pengajuan Perdin</h5>
+                            <h5>Status Pengajuan Perdin</h5>
                         </div>
                     </div>
                 
-                    <form action="{{ route('admin.perdin.post') }}" method="post" id="form_add" class="p-3" enctype="multipart/form-data">
+                    <form action="{{ route('admin.perdin.edit', ['id_perdin' => $data['data']->id_perdin]) }}" method="post" id="form_edit" class="p-3" enctype="multipart/form-data">
                         @csrf
+
+                        <section class="form-input">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row mt-2">
+                                        <div class="col-md-12">
+                                            Kota Asal
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-3">
+                                            <span>Pulau</span>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select name="id_pulau" id="id_pulau_asal" class="select" onchange="get_provinsi_asal(this.value)">
+                                                <option value="">&nbsp;</option>
+                                                @foreach ($data["pulau"] as $k => $v)
+                                                    <option value="{{ $v->id_pulau }}">{{ $v->name }}</option>
+                                                @endforeach
+                                            </select>  
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-3">
+                                            <span>Provinsi</span>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select name="id_provinsi" id="id_provinsi_asal" class="select" onchange="get_kota_asal(this.value)">
+                                                
+                                            </select>  
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-3">
+                                            <span>Kota</span>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select name="id_kota_asal" id="id_kota_asal" class="select" onchange="getJarak()">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <div class="row mt-2">
+                                        <div class="col-md-12">
+                                            <i class="fa-solid fa-plane-arrival me-2"></i> Kota Tujuan
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-3">
+                                            <span>Pulau</span>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select name="id_pulau" id="id_pulau_tujuan" class="select" onchange="get_provinsi_tujuan(this.value)">
+                                                <option value="">&nbsp;</option>
+                                                @foreach ($data["pulau"] as $k => $v)
+                                                    <option value="{{ $v->id_pulau }}">{{ $v->name }}</option>
+                                                @endforeach
+                                            </select>  
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-3">
+                                            <span>Provinsi</span>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select name="id_provinsi" id="id_provinsi_tujuan" class="select" onchange="get_kota_tujuan(this.value)">
+                                                
+                                            </select>  
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-3">
+                                            <span>Kota</span>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select name="id_kota_tujuan" id="id_kota_tujuan" class="select" onchange="getJarak()">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row mt-2">
-                                    <div class="col-md-12">
-                                        <i class="fa-solid fa-plane-departure me-2"></i> Kota Asal
-                                        <hr>
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-3">
-                                        <span>Pulau</span>
-                                    </div>
-                                    <div class="col-md-7">
-                                        <select name="id_pulau" id="id_pulau_asal" class="select" onchange="get_provinsi_asal(this.value)">
-                                            <option value="">&nbsp;</option>
-                                            @foreach ($data["pulau"] as $k => $v)
-                                                <option value="{{ $v->id_pulau }}">{{ $v->name }}</option>
-                                            @endforeach
-                                        </select>  
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-3">
-                                        <span>Provinsi</span>
-                                    </div>
-                                    <div class="col-md-7">
-                                        <select name="id_provinsi" id="id_provinsi_asal" class="select" onchange="get_kota_asal(this.value)">
-                                            
-                                        </select>  
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-3">
-                                        <span>Kota</span>
-                                    </div>
-                                    <div class="col-md-7">
-                                        <select name="id_kota_asal" id="id_kota_asal" class="select" onchange="getJarak()">
 
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-4">
-                            <div class="col-md-12">
-                                <div class="row mt-2">
-                                    <div class="col-md-12">
-                                        <i class="fa-solid fa-plane-arrival me-2"></i> Kota Tujuan
-                                        <hr>
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-3">
-                                        <span>Pulau</span>
-                                    </div>
-                                    <div class="col-md-7">
-                                        <select name="id_pulau" id="id_pulau_tujuan" class="select" onchange="get_provinsi_tujuan(this.value)">
-                                            <option value="">&nbsp;</option>
-                                            @foreach ($data["pulau"] as $k => $v)
-                                                <option value="{{ $v->id_pulau }}">{{ $v->name }}</option>
-                                            @endforeach
-                                        </select>  
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-3">
-                                        <span>Provinsi</span>
-                                    </div>
-                                    <div class="col-md-7">
-                                        <select name="id_provinsi" id="id_provinsi_tujuan" class="select" onchange="get_kota_tujuan(this.value)">
-                                            
-                                        </select>  
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-3">
-                                        <span>Kota</span>
-                                    </div>
-                                    <div class="col-md-7">
-                                        <select name="id_kota_tujuan" id="id_kota_tujuan" class="select" onchange="getJarak()">
-
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-4">
-                            <div class="col-md-12">
-                                <div class="row mt-2">
-                                    <div class="col-md-12">
-                                        <i class="bi bi-calendar me-2"></i> Tanggal Keberangkatan
-                                        <hr>
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-12">
-                                        <div class="row mt-2">
-                                            <div class="col-md-3 mt-2">
-                                                <span>Tanggal Berangkat</span>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <input type="date" name="date_berangkat" id="date_berangkat" class="form-control" onchange="getDays()">
-                                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <div class="row mt-2">
+                                        <div class="col-md-12">
+                                            <i class="bi bi-calendar me-2"></i> Tanggal Keberangkatan
+                                            <hr>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="row mt-2">
-                                            <div class="col-md-3 mt-2">
-                                                <span>Tanggal Pulang</span>
+                                    <div class="row mt-2">
+                                        <div class="col-md-12">
+                                            <div class="row mt-2">
+                                                <div class="col-md-3 mt-2">
+                                                    <span>Tanggal Berangkat</span>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="date" name="date_berangkat" id="date_berangkat" class="form-control" onchange="getDays()" value="{{ $data['data']->date_berangkat }}">
+                                                </div>
                                             </div>
-                                            <div class="col-md-7">
-                                                <input type="date" name="date_pulang" id="date_pulang" class="form-control" onchange="getDays()">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row mt-2">
+                                                <div class="col-md-3 mt-2">
+                                                    <span>Tanggal Pulang</span>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="date" name="date_pulang" id="date_pulang" class="form-control" onchange="getDays()" value="{{ $data['data']->date_pulang }}">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row mt-4">
-                            <div class="col-md-12">
-                                <div class="row mt-2">
-                                    <div class="col-md-3">
-                                        Keterangan
-                                    </div>
-                                    <div class="col-md-7">
-                                        <textarea name="keterangan" id="" cols="30" rows="5" class="form-control"></textarea>
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <div class="row mt-2">
+                                        <div class="col-md-3">
+                                            Keterangan
+                                        </div>
+                                        <div class="col-md-7">
+                                            <textarea name="keterangan" id="" cols="30" rows="5" class="form-control">{{ $data['data']->keterangan }}</textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row mt-4">
-                            <div class="col-md-12">
-                                <div class="row mt-2">
-                                    <div class="col-md-12">
-                                        <i class="bi bi-calendar me-2"></i> Informasi
-                                        <hr>
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-12">
-                                        <div class="row mt-2">
-                                            <div class="col-md-3">
-                                                <span>Durasi Perjalanan</span>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <input type="hidden" name="durasi" id="">
-                                                <b id="durasi">0</b> Hari
-                                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <div class="row mt-2">
+                                        <div class="col-md-12">
+                                            <i class="bi bi-calendar me-2"></i> Informasi
+                                            <hr>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="row mt-2">
-                                            <div class="col-md-3">
-                                                <span>Jarak Perjalanan</span>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <input type="hidden" name="jarak" id="">
-                                                <b id="jarak">0</b> Km
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="row mt-2">
-                                            <div class="col-md-3">
-                                                <span>Pengajuan Anggaran / hari</span>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <input type="hidden" name="uang_saku" id="">
-                                                <span class="mata_uang">Rp.</span> <b id="uang_saku">0</b>
+                                    <div class="row mt-2">
+                                        <div class="col-md-12">
+                                            <div class="row mt-2">
+                                                <div class="col-md-3">
+                                                    <span>Durasi Perjalanan</span>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="hidden" name="durasi" id="" value="{{ $data['data']->durasi }}">
+                                                    <b id="durasi">{{ $data['data']->durasi }}</b> Hari
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="row mt-2">
-                                            <div class="col-md-3">
-                                                <span>Total Pengajuan Anggaran</span>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <input type="hidden" name="total_uang_saku" id="">
-                                                <span class="mata_uang">Rp.</span> <b id="total_uang_saku">0</b>
+                                        <div class="col-md-12">
+                                            <div class="row mt-2">
+                                                <div class="col-md-3">
+                                                    <span>Jarak Perjalanan</span>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="hidden" name="jarak" id="" value="{{ $data['data']->jarak }}">
+                                                    <b id="jarak">{{ $data['data']->jarak }}</b> Km
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="col-md-12">
+                                            <div class="row mt-2">
+                                                <div class="col-md-3">
+                                                    <span>Pengajuan Anggaran / hari</span>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="hidden" name="uang_saku" id="" value="{{ $data['data']->uang_saku }}">
+                                                    <span class="mata_uang">{{ $data['data']->mata_uang }}</span> <b id="uang_saku">{{ number_format($data['data']->uang_saku, 0, ',', '.') }}</b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row mt-2">
+                                                <div class="col-md-3">
+                                                    <span>Total Pengajuan Anggaran</span>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="hidden" name="total_uang_saku" id="" value="{{ $data['data']->total_uang_saku }}">
+                                                    <span class="mata_uang">{{ $data['data']->mata_uang }}</span> <b id="total_uang_saku">{{ number_format($data['data']->total_uang_saku, 0, ',', '.') }}</b>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                    <input type="hidden" name="mata_uang">
+                                        <input type="hidden" name="mata_uang" value="{{ $data['data']->mata_uang }}">
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        
+                        </section>
+                        <hr>
 
                         <div class="row mt-5">
                             <div class="col-md-12 text-center">
-                                <button type="submit" class="btn btn-primary w-200px">
-                                    <small>Ajukan</small>
+                                Pengaju : {{ $data['data']->pengaju->name }}
+                            </div>
+                            <div class="col-md-12 text-center">
+                                Updated By : {{ !empty($data['data']->approval->name) ? $data['data']->approval->name : '' }}
+                            </div>
+                            <div class="col-md-12 text-center">
+                                Status : {{ $data['data']->status->name }}
+                            </div>
+                        </div>
+
+                        <div class="row mt-5">
+                            <div class="col-md-12 text-center">
+                                <button type="submit" class="btn btn-primary w-200px" {{ $data['data']->id_status != 1 ? "disabled" : "" }}>
+                                    <small>Update</small>
                                 </button>
+                                @if ($id_role == '1' || $id_role == '3')
+                                    <button type="button" class="btn btn-secondary w-200px" onclick="updateStatus('2')">
+                                        <small>Pending</small>
+                                    </button>
+                                    <button type="button" class="btn btn-success w-200px" onclick="updateStatus('3')">
+                                        <small>Aproved</small>
+                                    </button>
+                                    <button type="button" class="btn btn-danger w-200px" onclick="updateStatus('4')">
+                                        <small>Rejected</small>
+                                    </button>
+                                @endif
                             </div>
                         </div>
 
@@ -238,38 +288,21 @@
 
 <script>
 
+    var url_detail_kota = "{{ route('admin.master.kota.detail', ':id_kota') }}";
     var url_data_provinsi = "{{ route('admin.master.provinsi.list.data', ':id_pulau') }}";
     var url_data_kota = "{{ route('admin.master.kota.list.data', ':id_provinsi') }}";
+    var url_update_status = "{{ route('admin.perdin.update_status', ':id_perdin') }}";
 
     let tomSelectProvinsiAsal, toSelectKotaAsal;
     let tomSelectProvinsiTujuan, toSelectKotaTujuan;
 
     $(document).ready(function() {
         // Asal
-        tomSelectPulauAsal = new TomSelect('#id_pulau_asal', {
-            plugins: ['remove_button']
-        });
-
-        tomSelectProvinsiAsal = new TomSelect('#id_provinsi_asal', {
-            plugins: ['remove_button']
-        });
-
-        toSelectKotaAsal = new TomSelect('#id_kota_asal', {
-            plugins: ['remove_button']
-        });
-
+        getDetailKotaAsal()
+    
         // Tujuan
-        tomSelectPulauTujuan = new TomSelect('#id_pulau_tujuan', {
-            plugins: ['remove_button']
-        });
-
-        tomSelectProvinsiTujuan = new TomSelect('#id_provinsi_tujuan', {
-            plugins: ['remove_button']
-        });
-
-        toSelectKotaTujuan = new TomSelect('#id_kota_tujuan', {
-            plugins: ['remove_button']
-        });
+        getDetailKotaTujuan()
+        
 
         $('#form_add').validate({
             rules: {
@@ -290,7 +323,47 @@
         
     });
 
+    
     // Asal
+    function getDetailKotaAsal(){
+
+        var id_kota_asal = "{{ $data['data']->id_kota_asal }}"
+        var url = url_detail_kota.replace(':id_kota', id_kota_asal);
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "json",
+            success: function (response) {
+                tomSelectPulauAsal = new TomSelect('#id_pulau_asal', {
+                    plugins: ['remove_button'],
+                    items: [response.id_pulau],
+                });
+
+                tomSelectProvinsiAsal = new TomSelect('#id_provinsi_asal', {
+                    plugins: ['remove_button'],
+                    items: [response.id_provinsi],
+                    options: [
+                        { value: response.id_provinsi, text: response.provinsi.name },
+                    ]
+                });
+
+                var value_kota = response.id_kota + '|' + response.lat + '|' + response.long + '|' + response.id_provinsi + '|' + response.id_pulau + '|' + response.is_luar_negri
+
+                toSelectKotaAsal = new TomSelect('#id_kota_asal', {
+                    plugins: ['remove_button'],
+                    items: [value_kota],
+                    options: [
+                        { 
+                            value: value_kota, 
+                            text: response.name 
+                        },
+                    ]
+                });
+            }
+        });
+    }
+    
     function get_provinsi_asal(id_pulau) {  
         
         url = url_data_provinsi.replace(':id_pulau', id_pulau);
@@ -352,6 +425,42 @@
     }
 
     // Tujuan
+    function getDetailKotaTujuan(){
+
+        var id_kota_asal = "{{ $data['data']->id_kota_tujuan }}"
+        var url = url_detail_kota.replace(':id_kota', id_kota_asal);
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "json",
+            success: function (response) {
+                tomSelectPulauTujuan = new TomSelect('#id_pulau_tujuan', {
+                    plugins: ['remove_button'],
+                    items: [response.id_pulau],
+                });
+
+                tomSelectProvinsiTujuan = new TomSelect('#id_provinsi_tujuan', {
+                    plugins: ['remove_button'],
+                    items: [response.id_provinsi],
+                    options: [
+                        { value: response.id_provinsi, text: response.provinsi.name },
+                    ]
+                });
+
+                var value_kota = response.id_kota + '|' + response.lat + '|' + response.long + '|' + response.id_provinsi + '|' + response.id_pulau + '|' + response.is_luar_negri
+
+                toSelectKotaTujuan = new TomSelect('#id_kota_tujuan', {
+                    plugins: ['remove_button'],
+                    items: [value_kota],
+                    options: [
+                        { value: value_kota, text: response.name },
+                    ]
+                });
+            }
+        });
+    }
+
     function get_provinsi_tujuan(id_pulau) {  
         
         url = url_data_provinsi.replace(':id_pulau', id_pulau);
@@ -412,6 +521,7 @@
         });
     }
 
+    // HITUNG HARI
     function getDays() {
         var date_berangkat = $('#date_berangkat').val()
         var date_pulang = $('#date_pulang').val()
@@ -582,6 +692,37 @@
         $('[name="mata_uang"]').val(mata_uang)
     }
 
+    function updateStatus(id_status)
+    {
+        var id_perdin = "{{ $data['data']->id_perdin }}"
+        url = url_update_status.replace(':id_perdin', id_perdin);
+        
+        $.ajax({
+            url: url,
+            type: "POST",
+            data : {
+                _token: "{{ csrf_token() }}",
+                id_status : id_status
+            },
+            dataType: "json",
+            beforeSend: function() {
+                
+            },
+            success: function(data) {
+                
+            },
+            error: function(xhr, status, error) {
+                
+            },
+            complete: function(){
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' 
+                });
+                window.location.reload();
+            }
+        });
+    }
 
 </script>
 @endpush

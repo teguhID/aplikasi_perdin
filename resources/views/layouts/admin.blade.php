@@ -5,21 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="-">
     <meta name="title" content="Akhdani">
-    <meta name="keywords" content="jasa servis, jasa service, servis elektronik, service elektronik, servis komputer, service komputer, servis rumah, service rumah, servis AC, service AC, servis mobil, service mobil, Bandung">
-    <meta name="author" content="Globe Servis">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
 
      <!-- Open Graph Meta Tags -->
      <meta property="og:title" content="Akhdani">
      <meta property="og:description" content="">
      <meta property="og:image" content="path/to/image.jpg">
      <meta property="og:image" content="{{ asset('') }}img/apple-touch-icon.png">
-     <meta property="og:url" content="https://jasaservisbandung.com/">
+     <meta property="og:url" content="">
      <meta property="og:type" content="website">
      
      <!-- Twitter Card Meta Tags -->
      <meta name="twitter:card" content="summary_large_image">
      <meta name="twitter:title" content="Akhdani">
-     <meta name="twitter:description" content="Globe Servis menyediakan jasa servis terpercaya di kota Bandung. Kami melayani berbagai kebutuhan servis Anda dengan profesionalisme dan keahlian.">
+     <meta name="twitter:description" content="">
      <meta name="twitter:image" content="{{ asset('') }}img/apple-touch-icon.png">
  
      <!-- Additional Meta Tags -->
@@ -29,8 +29,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicons -->
-    <link href="{{ asset('') }}img/favicon.png" rel="icon">
-    <link href="{{ asset('') }}img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="" rel="icon">
+    <link href="" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,7 +61,12 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         @php
+            use App\Models\m_role;
+            $role_name = m_role::where('id_role', Auth::user()->id_role)->first()->name;
+
             $currentRoute = Route::currentRouteName();
+            
+            $id_role = Auth::user()->id_role;
         @endphp
 
         <div class="d-flex align-items-center justify-content-between">
@@ -91,6 +96,7 @@
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                 <li class="dropdown-header">
                     <h6>{{ Auth::user()->name }}</h6>
+                    <small>{{ $role_name }}</small>
                 </li>
                 <li>
                     <hr class="dropdown-divider">
@@ -130,125 +136,126 @@
                 </a>
             </li>
             
-            <li class="nav-item">
-                <a class="nav-link {{ 
+            @if ($id_role == '1')
+                <li class="nav-item">
+                    <a class="nav-link {{ 
+                            
+                        ($currentRoute == 'admin.master.pulau.list') ||
+                        ($currentRoute == 'admin.master.pulau.add_view') ||
+                        ($currentRoute == 'admin.master.pulau.edit_view') ||
+                        ($currentRoute == 'admin.master.kota.list') ||
+                        ($currentRoute == 'admin.master.kota.add_view') ||
+                        ($currentRoute == 'admin.master.kota.edit_view')
                         
-                    ($currentRoute == 'admin.master.pulau.list') ||
-                    ($currentRoute == 'admin.master.pulau.add_view') ||
-                    ($currentRoute == 'admin.master.pulau.edit_view') ||
-                    ($currentRoute == 'admin.master.kota.list') ||
-                    ($currentRoute == 'admin.master.kota.add_view') ||
-                    ($currentRoute == 'admin.master.kota.edit_view')
-                    
-                    ? '' : 'collapsed' 
-                    
-                    }}" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                        ? '' : 'collapsed' 
+                        
+                        }}" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
 
-                    <i class="fa-solid fa-sliders"></i>
-                    <span>Master</span>
-                    <i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-nav" class="nav-content {{ 
-                    
-                    ($currentRoute == 'admin.master.pulau.list') ||
-                    ($currentRoute == 'admin.master.pulau.add_view') ||
-                    ($currentRoute == 'admin.master.pulau.edit_view') ||
-                    ($currentRoute == 'admin.master.provinsi.list') ||
-                    ($currentRoute == 'admin.master.provinsi.add_view') ||
-                    ($currentRoute == 'admin.master.provinsi.edit_view') ||
-                    ($currentRoute == 'admin.master.kota.list') ||
-                    ($currentRoute == 'admin.master.kota.add_view') ||
-                    ($currentRoute == 'admin.master.kota.edit_view') ||
-                    ($currentRoute == 'admin.master.role.list') ||
-                    ($currentRoute == 'admin.master.role.add_view') ||
-                    ($currentRoute == 'admin.master.role.edit_view') ||
-                    ($currentRoute == 'admin.master.status.list') ||
-                    ($currentRoute == 'admin.master.status.add_view') ||
-                    ($currentRoute == 'admin.master.status.edit_view')
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>Master</span>
+                        <i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="components-nav" class="nav-content {{ 
+                        
+                        ($currentRoute == 'admin.master.pulau.list') ||
+                        ($currentRoute == 'admin.master.pulau.add_view') ||
+                        ($currentRoute == 'admin.master.pulau.edit_view') ||
+                        ($currentRoute == 'admin.master.provinsi.list') ||
+                        ($currentRoute == 'admin.master.provinsi.add_view') ||
+                        ($currentRoute == 'admin.master.provinsi.edit_view') ||
+                        ($currentRoute == 'admin.master.kota.list') ||
+                        ($currentRoute == 'admin.master.kota.add_view') ||
+                        ($currentRoute == 'admin.master.kota.edit_view') ||
+                        ($currentRoute == 'admin.master.role.list') ||
+                        ($currentRoute == 'admin.master.role.add_view') ||
+                        ($currentRoute == 'admin.master.role.edit_view') ||
+                        ($currentRoute == 'admin.master.status.list') ||
+                        ($currentRoute == 'admin.master.status.add_view') ||
+                        ($currentRoute == 'admin.master.status.edit_view')
 
-                    ? '' : 'collapse' 
-                
-                    }}" data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="{{ route('admin.master.pulau.list') }}" class="{{ 
-                        
-                                ($currentRoute == 'admin.master.pulau.list') ||
-                                ($currentRoute == 'admin.master.pulau.add_view') ||
-                                ($currentRoute == 'admin.master.pulau.edit_view')
-                            
-                            ? 'active' : '' 
-                            
-                            }}">
-                            <i class="bi bi-circle"></i><span>Pulau</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.master.provinsi.list') }}" class="{{ 
-                        
-                                ($currentRoute == 'admin.master.provinsi.list') ||
-                                ($currentRoute == 'admin.master.provinsi.add_view') ||
-                                ($currentRoute == 'admin.master.provinsi.edit_view')
-                            
-                            ? 'active' : '' 
-                            
-                            }}">
-                            <i class="bi bi-circle"></i><span>Provinsi</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.master.kota.list') }}" class="{{ 
-                        
-                                ($currentRoute == 'admin.master.kota.list') ||
-                                ($currentRoute == 'admin.master.kota.add_view') ||
-                                ($currentRoute == 'admin.master.kota.edit_view')
-                            
-                            ? 'active' : '' 
-                            
-                            }}">
-                            <i class="bi bi-circle"></i><span>Kota</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.master.role.list') }}" class="{{ 
-                        
-                                ($currentRoute == 'admin.master.role.list') ||
-                                ($currentRoute == 'admin.master.role.add_view') ||
-                                ($currentRoute == 'admin.master.role.edit_view')
-                            
-                            ? 'active' : '' 
-                            
-                            }}">
-                            <i class="bi bi-circle"></i><span>Role</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.master.status.list') }}" class="{{ 
-                        
-                                ($currentRoute == 'admin.master.status.list') ||
-                                ($currentRoute == 'admin.master.status.add_view') ||
-                                ($currentRoute == 'admin.master.status.edit_view')
-                            
-                            ? 'active' : '' 
-                            
-                            }}">
-                            <i class="bi bi-circle"></i><span>Status</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-
-            <li class="nav-item">
-                <a class="nav-link {{ 
+                        ? '' : 'collapse' 
                     
-                    $currentRoute == 'admin.user' ||
-                    $currentRoute == 'admin.user.edit_view'
-                    
-                    ? '' : 'collapsed' }}" href="{{ route('admin.user') }}">
-                <i class="fa-solid fa-address-card"></i>
-                <span>User Management</span>
-                </a>
-            </li>
+                        }}" data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="{{ route('admin.master.pulau.list') }}" class="{{ 
+                            
+                                    ($currentRoute == 'admin.master.pulau.list') ||
+                                    ($currentRoute == 'admin.master.pulau.add_view') ||
+                                    ($currentRoute == 'admin.master.pulau.edit_view')
+                                
+                                ? 'active' : '' 
+                                
+                                }}">
+                                <i class="bi bi-circle"></i><span>Pulau</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.master.provinsi.list') }}" class="{{ 
+                            
+                                    ($currentRoute == 'admin.master.provinsi.list') ||
+                                    ($currentRoute == 'admin.master.provinsi.add_view') ||
+                                    ($currentRoute == 'admin.master.provinsi.edit_view')
+                                
+                                ? 'active' : '' 
+                                
+                                }}">
+                                <i class="bi bi-circle"></i><span>Provinsi</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.master.kota.list') }}" class="{{ 
+                            
+                                    ($currentRoute == 'admin.master.kota.list') ||
+                                    ($currentRoute == 'admin.master.kota.add_view') ||
+                                    ($currentRoute == 'admin.master.kota.edit_view')
+                                
+                                ? 'active' : '' 
+                                
+                                }}">
+                                <i class="bi bi-circle"></i><span>Kota</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.master.role.list') }}" class="{{ 
+                            
+                                    ($currentRoute == 'admin.master.role.list') ||
+                                    ($currentRoute == 'admin.master.role.add_view') ||
+                                    ($currentRoute == 'admin.master.role.edit_view')
+                                
+                                ? 'active' : '' 
+                                
+                                }}">
+                                <i class="bi bi-circle"></i><span>Role</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.master.status.list') }}" class="{{ 
+                            
+                                    ($currentRoute == 'admin.master.status.list') ||
+                                    ($currentRoute == 'admin.master.status.add_view') ||
+                                    ($currentRoute == 'admin.master.status.edit_view')
+                                
+                                ? 'active' : '' 
+                                
+                                }}">
+                                <i class="bi bi-circle"></i><span>Status</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ 
+                        
+                        $currentRoute == 'admin.user' ||
+                        $currentRoute == 'admin.user.edit_view'
+                        
+                        ? '' : 'collapsed' }}" href="{{ route('admin.user') }}">
+                    <i class="fa-solid fa-address-card"></i>
+                    <span>User Management</span>
+                    </a>
+                </li>                
+            @endif
 
             <li class="nav-item">
                 <a class="nav-link {{ 

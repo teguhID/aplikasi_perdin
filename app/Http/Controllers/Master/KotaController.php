@@ -35,9 +35,9 @@ class KotaController extends Controller
         return view('admin.master.kota.add')->with('data', $data);
     }
 
-    function detail()
+    function detail($id_kota)
     {
-        return view('admin.master.kota.detail');
+        return m_kota::where('id_kota', $id_kota)->with(['provinsi', 'pulau'])->first();
     }
 
     function post(Request $request)

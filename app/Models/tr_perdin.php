@@ -44,6 +44,11 @@ class tr_perdin extends Model
         return $this->hasOne(User::class, 'id', 'id_user_pengaju');
     }
 
+    function approval()
+    {
+        return $this->hasOne(User::class, 'id', 'id_user_approval');
+    }
+
     function status()
     {
         return $this->hasOne(m_status::class, 'id_status', 'id_status');

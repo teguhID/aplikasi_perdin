@@ -1,26 +1,26 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <title>Globe Servis - Jasa Servis di Kota Bandung</title>
+    <title>Akhdani</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="keywords" content="jasa servis, jasa service, servis elektronik, service elektronik, servis komputer, service komputer, servis rumah, service rumah, servis AC, service AC, servis mobil, service mobil, Bandung">
-    <meta name="author" content="Globe Servis">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
 
      <!-- Open Graph Meta Tags -->
-     <meta property="og:title" content="Globe Servis - Jasa Servis di Kota Bandung">
+     <meta property="og:title" content="Akhdani">
      <meta property="og:description" content="">
      <meta property="og:image" content="path/to/image.jpg">
-     <meta property="og:image" content="{{ asset('') }}img/apple-touch-icon.png">
-     <meta property="og:url" content="https://jasaservisbandung.com/">
+     <meta property="og:image" content="">
+     <meta property="og:url" content="">
      <meta property="og:type" content="website">
      
      <!-- Twitter Card Meta Tags -->
      <meta name="twitter:card" content="summary_large_image">
-     <meta name="twitter:title" content="Globe Servis - Jasa Servis di Kota Bandung">
-     <meta name="twitter:description" content="Globe Servis menyediakan jasa servis terpercaya di kota Bandung. Kami melayani berbagai kebutuhan servis Anda dengan profesionalisme dan keahlian.">
-     <meta name="twitter:image" content="{{ asset('') }}img/apple-touch-icon.png">
+     <meta name="twitter:title" content="Akhdani">
+     <meta name="twitter:description" content="">
+     <meta name="twitter:image" content="">
  
      <!-- Additional Meta Tags -->
      <meta name="theme-color" content="#4CAF50">
@@ -32,8 +32,8 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet"> --}}
 
-    <link href="{{ asset('') }}img/favicon.png" rel="icon">
-    <link href="{{ asset('') }}img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="" rel="icon">
+    <link href="" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

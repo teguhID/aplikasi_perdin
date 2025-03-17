@@ -75,7 +75,8 @@ Route::post('/admin/user/edit/{id}', [App\Http\Controllers\UserController::class
 Route::get('/admin/perdin', [App\Http\Controllers\PerdinController::class, 'perdin'])->name('admin.perdin');
 Route::get('/admin/perdin/add_view', [App\Http\Controllers\PerdinController::class, 'add_view'])->name('admin.perdin.add_view');
 Route::post('/admin/perdin/post', [App\Http\Controllers\PerdinController::class, 'post'])->name('admin.perdin.post');
+Route::post('/admin/perdin/status/{id_perdin}', [App\Http\Controllers\PerdinController::class, 'update_status'])->name('admin.perdin.update_status');
 Route::get('/admin/perdin/{id_perdin}', [App\Http\Controllers\PerdinController::class, 'detail'])->name('admin.perdin.detail');
 Route::get('/admin/perdin/edit_view/{id_perdin}', [App\Http\Controllers\PerdinController::class, 'edit_view'])->name('admin.perdin.edit_view');
-Route::get('/admin/perdin/edit/{id_perdin}', [App\Http\Controllers\PerdinController::class, 'edit'])->name('admin.perdin.edit');
+Route::post('/admin/perdin/edit/{id_perdin}', [App\Http\Controllers\PerdinController::class, 'edit'])->name('admin.perdin.edit');
 Route::post('/admin/perdin/delete/{id_perdin}', [App\Http\Controllers\PerdinController::class, 'delete'])->name('admin.perdin.delete');

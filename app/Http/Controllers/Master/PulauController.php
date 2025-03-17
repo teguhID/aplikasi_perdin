@@ -26,9 +26,9 @@ class PulauController extends Controller
         return view('admin.master.pulau.add');
     }
 
-    function detail()
+    function detail($id_pulau)
     {
-        return view('admin.master.pulau.detail');
+        return m_pulau::where('id_pulau', $id_pulau)->get();
     }
 
     function post(Request $request)

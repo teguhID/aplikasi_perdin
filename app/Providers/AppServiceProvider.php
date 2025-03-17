@@ -20,18 +20,5 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
-    {
-        View::composer('*', function ($view) {
-            $view->with('formatTanggalIndonesia', function ($tanggal) {
-                $dateTime = DateTime::createFromFormat('Y-m-d', $tanggal);
-                if (!$dateTime) {
-                    return "Format tanggal tidak valid";
-                }
-
-                $formatter = new IntlDateFormatter('id_ID', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
-                return $formatter->format($dateTime);
-            });
-        });
-    }
+    public function boot(): void {}
 }

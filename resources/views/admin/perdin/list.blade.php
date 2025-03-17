@@ -5,6 +5,8 @@
 @endpush
 
 @php
+    $id_role = Auth::user()->id_role;
+
     function formatTanggalIndonesia($tanggal) {
         $dateTime = DateTime::createFromFormat('Y-m-d', $tanggal);
         if (!$dateTime) {
@@ -20,6 +22,7 @@
         return $rupiah;
     }
 @endphp
+
 
 @section('content')
 <div class="container">
@@ -48,11 +51,13 @@
                         <div class="col-md-6">
                             <h5>Daftar Pengajuan Perjalanan Dinas</h5>
                         </div>
-                        <div class="col-md-6 text-end">
-                            <a href="{{ route('admin.perdin.add_view') }}" class="btn btn-outline-primary w-200px">
-                                <small>Pengajuan</small>
-                            </a>
-                        </div>
+                        @if ($id_role == '1' || $id_role == '2')
+                            <div class="col-md-6 text-end">
+                                <a href="{{ route('admin.perdin.add_view') }}" class="btn btn-outline-primary w-200px">
+                                    <small>Pengajuan</small>
+                                </a>
+                            </div>
+                        @endif
                     </div>
                     <hr>
                     <div class="row">
@@ -63,9 +68,9 @@
                                         <th class="text-center">No</th>
                                         <th class="text-center">Pengaju</th>
                                         <th class="text-center">Keterangan</th>
-                                        <th class="text-center">Kota</th>
-                                        <th class="text-center">Tanggal</th>
-                                        <th class="text-center">Total Pengajuan Biaya</th>
+                                        <th class="text-center" style="width: 200px">Kota</th>
+                                        <th class="text-center" style="width: 200px">Tanggal</th>
+                                        <th class="text-center" style="width: 200px">Biaya</th>
                                         <th class="text-center">Status</th>
                                         <th></th>
                                     </tr>
@@ -83,7 +88,9 @@
                                             </td>
                                             <td class="text-center">
                                                 <small>
-                                                    {{ formatTanggalIndonesia($value->date_berangkat) }} - {{ formatTanggalIndonesia($value->date_pulang) }}
+                                                    {{ formatTanggalIndonesia($value->date_berangkat) }} -
+                                                    <br> 
+                                                    {{ formatTanggalIndonesia($value->date_pulang) }}
                                                     <br>
                                                     {{ $value->durasi }} Hari
                                                 </small>
@@ -102,13 +109,15 @@
                                                         </a>
                                                     </div>
                                                 </div>
-                                                <div class="row mt-1">
-                                                    <div class="col-md-12">
-                                                        <button type="button" class="btn btn-sm btn-outline-secondary w-100px" onclick="show_modal_hapus('{{ $value->id_perdin }}', '{{ $value->name }}'">
-                                                            <small>Hapus</small>
-                                                        </button>
+                                                @if ($id_role == '1' || $id_role == '2')
+                                                    <div class="row mt-1">
+                                                        <div class="col-md-12">
+                                                            <button type="button" class="btn btn-sm btn-outline-secondary w-100px" onclick="show_modal_hapus('{{ $value->id_perdin }}', '{{ $value->keterangan }}')">
+                                                                <small>Hapus</small>
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
