@@ -15,7 +15,7 @@ class tr_perdin extends Model
         'id_user_pengaju',
         'id_user_approval',
         'id_status',
-        'tujuan',
+        'keterangan',
         'date_berangkat',
         'date_pulang',
         'durasi',
@@ -28,4 +28,24 @@ class tr_perdin extends Model
         'created_by',
         'updated_by'
     ];
+
+    function kota_asal()
+    {
+        return $this->hasOne(m_kota::class, 'id_kota', 'id_kota_asal');
+    }
+
+    function kota_tujuan()
+    {
+        return $this->hasOne(m_kota::class, 'id_kota', 'id_kota_tujuan');
+    }
+
+    function pengaju()
+    {
+        return $this->hasOne(User::class, 'id', 'id_user_pengaju');
+    }
+
+    function status()
+    {
+        return $this->hasOne(m_status::class, 'id_status', 'id_status');
+    }
 }

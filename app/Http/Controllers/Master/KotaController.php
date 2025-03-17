@@ -23,6 +23,12 @@ class KotaController extends Controller
         return view('admin.master.kota.list')->with('data', $data);
     }
 
+    function list_data($id_provinsi)
+    {
+        $data = m_kota::where('id_provinsi', $id_provinsi)->get();
+        return response()->json($data);
+    }
+
     function add_view()
     {
         $data['pulau'] = m_pulau::all();

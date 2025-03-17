@@ -16,9 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('id_kota_asal');
             $table->unsignedBigInteger('id_kota_tujuan');
             $table->unsignedBigInteger('id_user_pengaju');
-            $table->unsignedBigInteger('id_user_approval');
+            $table->unsignedBigInteger('id_user_approval')->nullable();
             $table->unsignedBigInteger('id_status');
-            $table->text('tujuan');
+            $table->text('keterangan');
             $table->string('date_berangkat');
             $table->string('date_pulang');
             $table->integer('durasi');

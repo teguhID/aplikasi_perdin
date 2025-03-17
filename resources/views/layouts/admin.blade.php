@@ -67,7 +67,7 @@
         <div class="d-flex align-items-center justify-content-between">
         <a href="#" class="logo d-flex align-items-center">           
             <span class="d-none d-lg-block">
-                <img src="{{ asset('') }}img/apple-touch-icon.png" alt="" height="80">
+                <img src="{{ asset('') }}img/logo.png" alt="">
             </span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -253,10 +253,10 @@
             <li class="nav-item">
                 <a class="nav-link {{ 
                     
-                    $currentRoute == 'admin.user' ||
-                    $currentRoute == 'admin.user.edit_view'
+                    $currentRoute == 'admin.perdin' ||
+                    $currentRoute == 'admin.perdin.edit_view'
                     
-                    ? '' : 'collapsed' }}" href="{{ route('admin.user') }}">
+                    ? '' : 'collapsed' }}" href="{{ route('admin.perdin') }}">
                 <i class="fa-solid fa-plane"></i>
                 <span>Pengajuan Perdin</span>
                 </a>
